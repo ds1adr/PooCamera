@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-protocol CameraViewControllerDelegate : class {
+protocol CameraViewControllerDelegate : AnyObject {
     func take(withImage image: UIImage)
     func cancel()
 }
@@ -20,7 +20,8 @@ class CameraViewController: UIViewController , AVCaptureVideoDataOutputSampleBuf
         static let maxImageFaceDetection = 10
     }
 
-    @IBOutlet weak var previewView : PreviewView!
+//    @IBOutlet weak var previewView : PreviewView!
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var previewImageView : UIImageView!
     @IBOutlet weak var buttonTake : UIButton!
     @IBOutlet weak var buttonChangeImage : UIButton!
@@ -100,28 +101,35 @@ class CameraViewController: UIViewController , AVCaptureVideoDataOutputSampleBuf
      // Pass the selected object to the new view controller.
         if (segue.identifier == "PictureModalSegue") {
             let vc = segue.destination as! PictureViewController;
+            vc.isFresh = true
             //vc.shareImage = makeShareImage()
         }
     }
     
-    func makePooImage() -> UIImage? {
-        UIGraphicsBeginImageContext(CGSize(width: 600, height: 600));
-        
-        let pooString = "💩" as NSString;
-        pooString.draw(in: CGRect(x: 0, y:0, width: 600, height : 600), withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 560)])
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext();
-        return image;
-    }
+//    func makePooImage() -> UIImage? {
+//        UIGraphicsBeginImageContext(CGSize(width: 600, height: 600));
+//        
+//        let pooString = "💩" as NSString;
+//        pooString.draw(in: CGRect(x: 0, y:0, width: 600, height : 600), withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 560)])
+//        
+//        let image = UIGraphicsGetImageFromCurrentImageContext()
+//        
+//        UIGraphicsEndImageContext();
+//        return image;
+//    }
     
     func initAndMakeImageSet() {
-        pooImage = makePooImage();
+        guard let pooImage = ImageManager.shared.currentImageData()?.image else { return }
+        self.pooImage = pooImage
+        imageViewEmotions.forEach { imageView in
+            imageView.removeFromSuperview()
+        }
+        self.imageViewEmotions.removeAll()
+        
         
         for _ in 0 ..< Constants.maxImageFaceDetection {
             let iv = UIImageView(image: self.pooImage)
-            self.view.addSubview(iv)
+            self.containerView.addSubview(iv)
             iv.isHidden = true;
             self.imageViewEmotions.append(iv)
         }
@@ -143,6 +151,10 @@ class CameraViewController: UIViewController , AVCaptureVideoDataOutputSampleBuf
         for device in devices {
             if (device.position == .back) {
                 self.backDevice = device;
+            }
+            if (device.position == .front) {
+                // Do something
+                self.frontDevice = device
                 do {
                     deviceInput = try AVCaptureDeviceInput(device: device)
                     if session.canAddInput(deviceInput) {
@@ -152,10 +164,6 @@ class CameraViewController: UIViewController , AVCaptureVideoDataOutputSampleBuf
                 catch {
                     
                 }
-            }
-            if (device.position == .front) {
-                // Do something
-                self.frontDevice = device;
             }
         }
         
@@ -179,7 +187,8 @@ class CameraViewController: UIViewController , AVCaptureVideoDataOutputSampleBuf
         
         self.camImage = UIImage(ciImage: camCIImage)
         
-        DispatchQueue.main.async { [unowned self] in
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
             self.previewImageView.image = self.camImage;
         }
         
@@ -196,7 +205,6 @@ class CameraViewController: UIViewController , AVCaptureVideoDataOutputSampleBuf
                 
                 let imageHeight = image.size.height;
                 
-
                 //let opts = [CIDetectorImageOrientation : NSNumber(value: 7)]
                 if let faces = FaceDetector.detectFace(withImage: image) {
                     DispatchQueue.main.async { [unowned self] in
@@ -308,18 +316,15 @@ class CameraViewController: UIViewController , AVCaptureVideoDataOutputSampleBuf
     }
     
     @IBAction func takeButtonClicked(button : UIButton) {
+        let image = containerView.asImage()
+        
         self.dismiss(animated: true) { [weak self] in
-            if let sSelf = self,
-                let img = sSelf.camImage {
-                if let d = sSelf.delegate {
-                    d.take(withImage: img)
-                }
-            }
+            self?.delegate?.take(withImage: image)
         }
     }
     
     func updateIcon() {
-        
+        initAndMakeImageSet()
     }
     
     @IBAction func imageSelectButtonClicked(_ button : UIButton) {

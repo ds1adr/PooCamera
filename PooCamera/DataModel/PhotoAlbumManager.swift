@@ -9,9 +9,20 @@
 import UIKit
 import Photos
 
+protocol PhotoAlbumManagerDelegate: AnyObject {
+    func fetchResultUpdated()
+}
+
 class PhotoAlbumManager {
     static let albumName = "EmotionCam"
     static let manager = PhotoAlbumManager()
+    weak var delegate: PhotoAlbumManagerDelegate? {
+        didSet {
+            if fetchResult != nil {
+                delegate?.fetchResultUpdated()
+            }
+        }
+    }
     
     var assetCollection: PHAssetCollection!
     var fetchResult: PHFetchResult<PHAsset>?
@@ -28,16 +39,20 @@ class PhotoAlbumManager {
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
         case .authorized:
+            assetCollection = fetchAssetCollectionForAlbum()
+            fetchAssets()
             createAlbum()
         case .denied, .restricted :
             break
         //handle denied status
         case .notDetermined:
             // ask for permissions
-            PHPhotoLibrary.requestAuthorization() { [unowned self] status in
+            PHPhotoLibrary.requestAuthorization() { [weak self] status in
                 switch status {
                 case .authorized:
-                    self.createAlbum()
+                    self?.assetCollection = self?.fetchAssetCollectionForAlbum()
+                    self?.fetchAssets()
+                    self?.createAlbum()
                 case .denied, .restricted:
                 // as above
                     break
@@ -54,13 +69,16 @@ class PhotoAlbumManager {
     }
     
     func createAlbum() {
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: PhotoAlbumManager.albumName)   // create an asset collection with the album name
-        }) { success, error in
-            if success {
-                self.assetCollection = self.fetchAssetCollectionForAlbum()
-            } else {
-                print("error \(String(describing: error))")
+        if assetCollection == nil {
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: PhotoAlbumManager.albumName)   // create an asset collection with the album name
+            }) { success, error in
+                if success {
+                    self.assetCollection = self.fetchAssetCollectionForAlbum()
+                    self.fetchAssets()
+                } else {
+                    print("error \(String(describing: error))")
+                }
             }
         }
     }
@@ -74,6 +92,14 @@ class PhotoAlbumManager {
             return collection.firstObject
         }
         return nil
+    }
+    
+    func fetchAssets() {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchResult = PHAsset.fetchAssets(in: assetCollection, options: fetchOptions)
+        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        delegate?.fetchResultUpdated()
     }
     
     func save(image: UIImage , completion : @escaping () -> ()) {

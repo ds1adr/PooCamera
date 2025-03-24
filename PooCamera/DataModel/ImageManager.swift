@@ -23,8 +23,17 @@ class ImageManager {
         imageList.append(ImageData(withEmoji: "🌤"))
         imageList.append(ImageData(withEmoji: "🌈"))
         imageList.append(ImageData(withEmoji: "🌧"))
-        imageList.append(ImageData(withEmoji: "⛈"))
         imageList.append(ImageData(withEmoji: "🌩"))
+        imageList.append(ImageData(withEmoji: "❤️"))
+        imageList.append(ImageData(withEmoji: "💕"))
+        imageList.append(ImageData(withEmoji: "🎶"))
+        imageList.append(ImageData(withEmoji: "🥶"))
+        imageList.append(ImageData(withEmoji: "😂"))
+        imageList.append(ImageData(withEmoji: "😍"))
+        imageList.append(ImageData(withEmoji: "😊"))
+        imageList.append(ImageData(withEmoji: "😭"))
+        imageList.append(ImageData(withEmoji: "😳"))
+        imageList.append(ImageData(withEmoji: "😅"))
     }
     
     func currentImageData() -> ImageData? {

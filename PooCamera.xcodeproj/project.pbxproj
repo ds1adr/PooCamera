@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,8 @@
 		3F622ABF1E1B5488003081E7 /* IconSelectionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F622ABE1E1B5488003081E7 /* IconSelectionCollectionViewCell.swift */; };
 		58185A8A1F5F75E3006916DA /* AlbumCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58185A891F5F75E3006916DA /* AlbumCollectionViewController.swift */; };
 		58A824201F66257900A32B29 /* FaceDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A8241F1F66257900A32B29 /* FaceDetector.swift */; };
+		B8C4AF302D90E322000E005B /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C4AF2F2D90E322000E005B /* PhotoCollectionViewCell.swift */; };
+		B8C4AF332D913105000E005B /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = B8C4AF322D913105000E005B /* GoogleMobileAds */; };
 		E28535951E1A4C89007BC0F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28535941E1A4C89007BC0F5 /* AppDelegate.swift */; };
 		E28535971E1A4C89007BC0F5 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28535961E1A4C89007BC0F5 /* CameraViewController.swift */; };
 		E285359A1E1A4C89007BC0F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E28535981E1A4C89007BC0F5 /* Main.storyboard */; };
@@ -52,6 +54,7 @@
 		3F622ABE1E1B5488003081E7 /* IconSelectionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconSelectionCollectionViewCell.swift; sourceTree = "<group>"; };
 		58185A891F5F75E3006916DA /* AlbumCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewController.swift; sourceTree = "<group>"; };
 		58A8241F1F66257900A32B29 /* FaceDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDetector.swift; sourceTree = "<group>"; };
+		B8C4AF2F2D90E322000E005B /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		E28535911E1A4C89007BC0F5 /* PooCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PooCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E28535941E1A4C89007BC0F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E28535961E1A4C89007BC0F5 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraViewController.swift; path = ../CameraViewController.swift; sourceTree = "<group>"; };
@@ -70,11 +73,17 @@
 		E2B92A121F5FC0340070E706 /* PhotoAlbumManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		B8C4AF2A2D8FD929000E005B /* Extensions */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extensions; sourceTree = "<group>"; };
+		B8C4AF6E2D9132DB000E005B /* Admob */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Admob; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		E285358E1E1A4C89007BC0F5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8C4AF332D913105000E005B /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +120,7 @@
 				3F622AB71E1B5423003081E7 /* ImageSelectCollectionViewController.swift */,
 				3F622AB51E1AE146003081E7 /* PictureViewController.swift */,
 				58185A891F5F75E3006916DA /* AlbumCollectionViewController.swift */,
+				B8C4AF2F2D90E322000E005B /* PhotoCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -157,6 +167,8 @@
 		E28535931E1A4C89007BC0F5 /* PooCamera */ = {
 			isa = PBXGroup;
 			children = (
+				B8C4AF6E2D9132DB000E005B /* Admob */,
+				B8C4AF2A2D8FD929000E005B /* Extensions */,
 				58A8241E1F66256600A32B29 /* FaceDetector */,
 				E2B929DC1F5E5EFA0070E706 /* EmojiImages */,
 				3F622AB91E1B5449003081E7 /* DataModel */,
@@ -219,6 +231,10 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				B8C4AF2A2D8FD929000E005B /* Extensions */,
+				B8C4AF6E2D9132DB000E005B /* Admob */,
 			);
 			name = PooCamera;
 			productName = PooCamera;
@@ -300,6 +316,9 @@
 				Base,
 			);
 			mainGroup = E28535881E1A4C89007BC0F5;
+			packageReferences = (
+				B8C4AF312D9130F5000E005B /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
 			productRefGroup = E28535921E1A4C89007BC0F5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -353,6 +372,7 @@
 				E28535951E1A4C89007BC0F5 /* AppDelegate.swift in Sources */,
 				3F622AB31E1AC9C7003081E7 /* PreviewView.swift in Sources */,
 				3F622ABF1E1B5488003081E7 /* IconSelectionCollectionViewCell.swift in Sources */,
+				B8C4AF302D90E322000E005B /* PhotoCollectionViewCell.swift in Sources */,
 				58A824201F66257900A32B29 /* FaceDetector.swift in Sources */,
 				3F622ABC1E1B5463003081E7 /* ImageData.swift in Sources */,
 			);
@@ -495,7 +515,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -510,8 +531,11 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = PooCamera/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "-ld_classic";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ds1adr.PooCamera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -529,8 +553,11 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = PooCamera/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				OTHER_LDFLAGS = "-ld_classic";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ds1adr.PooCamera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -545,7 +572,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = AQ27DVGF9D;
 				INFOPLIST_FILE = PooCameraTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ds1adr.PooCameraTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -560,7 +591,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = AQ27DVGF9D;
 				INFOPLIST_FILE = PooCameraTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ds1adr.PooCameraTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -574,7 +609,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = AQ27DVGF9D;
 				INFOPLIST_FILE = PooCameraUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ds1adr.PooCameraUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -588,7 +627,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = AQ27DVGF9D;
 				INFOPLIST_FILE = PooCameraUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ds1adr.PooCameraUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -636,6 +679,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B8C4AF312D9130F5000E005B /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B8C4AF322D913105000E005B /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8C4AF312D9130F5000E005B /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E28535891E1A4C89007BC0F5 /* Project object */;
 }
