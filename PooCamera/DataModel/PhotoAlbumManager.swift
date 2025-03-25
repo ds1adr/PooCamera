@@ -24,7 +24,7 @@ class PhotoAlbumManager {
         }
     }
     
-    var assetCollection: PHAssetCollection!
+    var assetCollection: PHAssetCollection?
     var fetchResult: PHFetchResult<PHAsset>?
     
     init() {
@@ -43,6 +43,7 @@ class PhotoAlbumManager {
             fetchAssets()
             createAlbum()
         case .denied, .restricted :
+            delegate?.fetchResultUpdated()
             break
         //handle denied status
         case .notDetermined:
@@ -55,6 +56,7 @@ class PhotoAlbumManager {
                     self?.createAlbum()
                 case .denied, .restricted:
                 // as above
+                    self?.delegate?.fetchResultUpdated()
                     break
                 case .notDetermined:
                     break
@@ -95,6 +97,7 @@ class PhotoAlbumManager {
     }
     
     func fetchAssets() {
+        guard let assetCollection else { return }
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         fetchResult = PHAsset.fetchAssets(in: assetCollection, options: fetchOptions)
@@ -103,17 +106,15 @@ class PhotoAlbumManager {
     }
     
     func save(image: UIImage , completion : @escaping () -> ()) {
-        if assetCollection == nil {
-            return                          // if there was an error upstream, skip the save
-        }
+        guard let assetCollection else { return }
         
         PHPhotoLibrary.shared().performChanges({
             let assetChangeRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
             let assetPlaceHolder = assetChangeRequest.placeholderForCreatedAsset
-            let albumChangeRequest = PHAssetCollectionChangeRequest(for: self.assetCollection)
+            let albumChangeRequest = PHAssetCollectionChangeRequest(for: assetCollection)
             let enumeration: NSArray = [assetPlaceHolder!]
             
-            if self.assetCollection.estimatedAssetCount == 0
+            if assetCollection.estimatedAssetCount == 0
             {
                 albumChangeRequest!.addAssets(enumeration)
             }

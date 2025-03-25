@@ -11,12 +11,16 @@ import UIKit
 /**
  @class ImageData
  */
-class ImageData {
+class ImageData: Equatable {
     var emojiText : String!
     var image : UIImage!
     
     init(withEmoji emoji: String) {
         emojiText = emoji
-        image = EmojiImage.textToImage(drawText: emojiText, withSize: CGSize(width: 500, height: 500))
+        image = EmojiImage.textToImage(drawText: emojiText, withSize: CGSize(width: emoji.count > 1 ? 1000 : 500, height: 500))
+    }
+    
+    static func == (lhs: ImageData, rhs: ImageData) -> Bool {
+        lhs.emojiText == rhs.emojiText
     }
 }

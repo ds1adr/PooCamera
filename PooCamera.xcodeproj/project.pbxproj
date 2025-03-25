@@ -17,6 +17,7 @@
 		58A824201F66257900A32B29 /* FaceDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A8241F1F66257900A32B29 /* FaceDetector.swift */; };
 		B8C4AF302D90E322000E005B /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C4AF2F2D90E322000E005B /* PhotoCollectionViewCell.swift */; };
 		B8C4AF332D913105000E005B /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = B8C4AF322D913105000E005B /* GoogleMobileAds */; };
+		B8C4AF722D91F8A3000E005B /* UsersContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C4AF712D91F8A3000E005B /* UsersContentsViewController.swift */; };
 		E28535951E1A4C89007BC0F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28535941E1A4C89007BC0F5 /* AppDelegate.swift */; };
 		E28535971E1A4C89007BC0F5 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28535961E1A4C89007BC0F5 /* CameraViewController.swift */; };
 		E285359A1E1A4C89007BC0F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E28535981E1A4C89007BC0F5 /* Main.storyboard */; };
@@ -55,7 +56,8 @@
 		58185A891F5F75E3006916DA /* AlbumCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewController.swift; sourceTree = "<group>"; };
 		58A8241F1F66257900A32B29 /* FaceDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDetector.swift; sourceTree = "<group>"; };
 		B8C4AF2F2D90E322000E005B /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		E28535911E1A4C89007BC0F5 /* PooCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PooCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8C4AF712D91F8A3000E005B /* UsersContentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersContentsViewController.swift; sourceTree = "<group>"; };
+		E28535911E1A4C89007BC0F5 /* EmotionCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmotionCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E28535941E1A4C89007BC0F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E28535961E1A4C89007BC0F5 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraViewController.swift; path = ../CameraViewController.swift; sourceTree = "<group>"; };
 		E28535991E1A4C89007BC0F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				3F622AB51E1AE146003081E7 /* PictureViewController.swift */,
 				58185A891F5F75E3006916DA /* AlbumCollectionViewController.swift */,
 				B8C4AF2F2D90E322000E005B /* PhotoCollectionViewCell.swift */,
+				B8C4AF712D91F8A3000E005B /* UsersContentsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -157,7 +160,7 @@
 		E28535921E1A4C89007BC0F5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E28535911E1A4C89007BC0F5 /* PooCamera.app */,
+				E28535911E1A4C89007BC0F5 /* EmotionCam.app */,
 				E28535A51E1A4C89007BC0F5 /* PooCameraTests.xctest */,
 				E28535B01E1A4C89007BC0F5 /* PooCameraUITests.xctest */,
 			);
@@ -238,7 +241,7 @@
 			);
 			name = PooCamera;
 			productName = PooCamera;
-			productReference = E28535911E1A4C89007BC0F5 /* PooCamera.app */;
+			productReference = E28535911E1A4C89007BC0F5 /* EmotionCam.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E28535A41E1A4C89007BC0F5 /* PooCameraTests */ = {
@@ -363,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58185A8A1F5F75E3006916DA /* AlbumCollectionViewController.swift in Sources */,
+				B8C4AF722D91F8A3000E005B /* UsersContentsViewController.swift in Sources */,
 				E28535971E1A4C89007BC0F5 /* CameraViewController.swift in Sources */,
 				3F622AB61E1AE146003081E7 /* PictureViewController.swift in Sources */,
 				E2B92A131F5FC0340070E706 /* PhotoAlbumManager.swift in Sources */,
@@ -537,8 +541,8 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "-ld_classic";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ds1adr.PooCamera;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ds1adr.EmotionCam;
+				PRODUCT_NAME = EmotionCam;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -559,8 +563,8 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "-ld_classic";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ds1adr.PooCamera;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ds1adr.EmotionCam;
+				PRODUCT_NAME = EmotionCam;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

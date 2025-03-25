@@ -75,7 +75,7 @@ class PictureViewController: UIViewController {
 
     private func checkPopup() {
         if isFresh {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.popupView.isHidden = false
             }
         }
@@ -90,7 +90,19 @@ class PictureViewController: UIViewController {
     }
     
     @IBAction func retakeAction() {
-        retakeHandler?()
         popupView.isHidden = true
+        navigationController?.popViewController(animated: false)
+//        dismiss(animated: true) { [weak self] in
+        self.retakeHandler?()
+//        }
+    }
+    
+    @IBAction func shareAction() {
+        guard let originalImage else { return }
+        let imageToShare = [originalImage]
+        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        present(activityViewController, animated: true)
     }
 }

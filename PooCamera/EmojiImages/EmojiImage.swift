@@ -12,7 +12,7 @@ class EmojiImage {
 
     class func textToImage(drawText text: String, withSize size: CGSize) -> UIImage {
         let textColor = UIColor.white
-        let imgSize = size.width * 0.9
+        let imgSize = size.height * 0.9
         let marginSize = size.width * 0.1
         let textFont = UIFont(name: "Helvetica Bold", size: imgSize)!
         

@@ -16,24 +16,10 @@ class ImageManager {
     
     var imageList : [ImageData] = [ImageData]();
     var selectedIndex : Int = 0;
+    var defaultEmojis = "💩 ☀️ 🌤 🌈 🌧 🌩 ❤️ 💕 🎶 🥶 😂 😍 😊 😭 😳 😅"
     
     init() {
-        imageList.append(ImageData(withEmoji: "💩"))
-        imageList.append(ImageData(withEmoji: "☀️"))
-        imageList.append(ImageData(withEmoji: "🌤"))
-        imageList.append(ImageData(withEmoji: "🌈"))
-        imageList.append(ImageData(withEmoji: "🌧"))
-        imageList.append(ImageData(withEmoji: "🌩"))
-        imageList.append(ImageData(withEmoji: "❤️"))
-        imageList.append(ImageData(withEmoji: "💕"))
-        imageList.append(ImageData(withEmoji: "🎶"))
-        imageList.append(ImageData(withEmoji: "🥶"))
-        imageList.append(ImageData(withEmoji: "😂"))
-        imageList.append(ImageData(withEmoji: "😍"))
-        imageList.append(ImageData(withEmoji: "😊"))
-        imageList.append(ImageData(withEmoji: "😭"))
-        imageList.append(ImageData(withEmoji: "😳"))
-        imageList.append(ImageData(withEmoji: "😅"))
+        makeImageList()
     }
     
     func currentImageData() -> ImageData? {
@@ -41,5 +27,34 @@ class ImageManager {
             return imageList[selectedIndex];
         }
         return nil;
+    }
+    
+    func makeImageList() {
+        imageList.removeAll()
+        
+        addUserEmojis()
+        
+        addDefaultEmojis()
+    }
+    
+    func addUserEmojis() {
+        guard let userEmojis = UserDefaults.standard.string(forKey: "userEmojis") else { return }
+        let array = userEmojis.components(separatedBy: " ")
+        array.forEach { str in
+            let imageData = ImageData(withEmoji: str)
+            if !str.isEmpty, !imageList.contains(imageData) {
+                imageList.append(imageData)
+            }
+        }
+    }
+    
+    func addDefaultEmojis() {
+        let array = defaultEmojis.components(separatedBy: " ")
+        array.forEach { str in
+            let imageData = ImageData(withEmoji: str)
+            if !imageList.contains(imageData) {
+                imageList.append(imageData)
+            }
+        }
     }
 }

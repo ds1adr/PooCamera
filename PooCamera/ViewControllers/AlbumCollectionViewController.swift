@@ -12,11 +12,11 @@ import UIKit
 class AlbumCollectionViewController: UIViewController {
     var dataSource: UICollectionViewDiffableDataSource<Int, PHAsset>?
     var collectionView: UICollectionView!
+    @IBOutlet weak var introLabel: UILabel!
     
     var selectedImage: UIImage?
     var isFresh: Bool = false
 //    var assets: [PHAsset] = []
-//    var faces: [CIFeature]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +98,7 @@ class AlbumCollectionViewController: UIViewController {
                 if let vc = segue.destination as? PictureViewController {
                     vc.originalImage = self.selectedImage
                     vc.isFresh = isFresh
-//                    vc.faces = self.faces
+
                     vc.retakeHandler = { [weak self] in
                         self?.performSegue(withIdentifier: "presentCameraView", sender: self)
                     }
@@ -112,28 +112,28 @@ class AlbumCollectionViewController: UIViewController {
     
 
     @IBAction func addButtonPressed() {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (_: UIAlertAction) in
+//        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//        
+//        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (_: UIAlertAction) in
             self.performSegue(withIdentifier: "presentCameraView", sender: self)
-        }
-        alertController.addAction(cameraAction)
-        
-        let photoLibraryAction = UIAlertAction(title: "Photo library", style: .default) { (_: UIAlertAction) in
-            let vc = UIImagePickerController()
-            
-            vc.allowsEditing = false
-            vc.sourceType = .photoLibrary
-            vc.delegate = self
-            
-            self.present(vc, animated: true, completion: nil)
-        }
-        alertController.addAction(photoLibraryAction)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        self.present(alertController, animated: true, completion: nil)
+//        }
+//        alertController.addAction(cameraAction)
+//        
+//        let photoLibraryAction = UIAlertAction(title: "Photo library", style: .default) { (_: UIAlertAction) in
+//            let vc = UIImagePickerController()
+//            
+//            vc.allowsEditing = false
+//            vc.sourceType = .photoLibrary
+//            vc.delegate = self
+//            
+//            self.present(vc, animated: true, completion: nil)
+//        }
+//        alertController.addAction(photoLibraryAction)
+//        
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//        alertController.addAction(cancelAction)
+//        
+//        self.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -146,7 +146,6 @@ extension AlbumCollectionViewController: UIImagePickerControllerDelegate, UINavi
         if let image = info[UIImagePickerController.InfoKey.originalImage.rawValue] as? UIImage,
             let faces = FaceDetector.detectFace(withImage: image) {
             self.selectedImage = image
-//            self.faces = faces
             
             self.dismiss(animated: true, completion: {
                 self.performSegue(withIdentifier: "pushPictureView", sender: self)
@@ -175,9 +174,22 @@ extension AlbumCollectionViewController: CameraViewControllerDelegate {
 
 extension AlbumCollectionViewController: PhotoAlbumManagerDelegate {
     func fetchResultUpdated() {
-        guard let fetchResult = PhotoAlbumManager.manager.fetchResult else { return }
+        guard let fetchResult = PhotoAlbumManager.manager.fetchResult, fetchResult.count > 0 else {
+            displayIntroduction()
+            return
+        }
+        Task { @MainActor in
+            introLabel.isHidden = true
+        }
         let assets = fetchResult.objects(at: IndexSet(0 ..< fetchResult.count))
         snapshot(assets: assets)
+    }
+    
+    func displayIntroduction() {
+        Task { @MainActor in
+            view.bringSubviewToFront(introLabel)
+            introLabel.isHidden = false
+        }
     }
 }
 

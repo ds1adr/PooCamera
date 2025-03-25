@@ -42,6 +42,7 @@ class CameraViewController: UIViewController , AVCaptureVideoDataOutputSampleBuf
     
 
     var pooImage : UIImage!
+    var imageCount: Int = 1
     
     var count : Int = 0;
     
@@ -119,8 +120,9 @@ class CameraViewController: UIViewController , AVCaptureVideoDataOutputSampleBuf
 //    }
     
     func initAndMakeImageSet() {
-        guard let pooImage = ImageManager.shared.currentImageData()?.image else { return }
-        self.pooImage = pooImage
+        guard let imageData = ImageManager.shared.currentImageData() else { return }
+        self.imageCount = imageData.emojiText.count
+        self.pooImage = imageData.image
         imageViewEmotions.forEach { imageView in
             imageView.removeFromSuperview()
         }
@@ -222,8 +224,9 @@ class CameraViewController: UIViewController , AVCaptureVideoDataOutputSampleBuf
                                 let center = CGPoint(x: (face.leftEyePosition.x + face.rightEyePosition.x)*mag/2.0, y: (lp + rp)*mag/2.0 )
                                 
                                 let iv = self.imageViewEmotions[currentImageIndex]
+                                let width = imageCount > 1 ? distance * 2 : distance
                                 
-                                iv.frame = CGRect(x: center.x - distance/2.0, y: center.y - distance*1.2 , width: distance, height: distance);
+                                iv.frame = CGRect(x: center.x - width/2.0, y: center.y - distance*1.2 , width: width, height: distance);
                                 iv.isHidden = false;
                                 
                             }
